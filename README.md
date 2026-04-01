@@ -101,6 +101,29 @@ Understanding how reconnaissance appears in packet captures helps analysts build
 
 ## Evidence
 
+All screenshots are stored in the `/screenshots` directory:
+
+- `capture-start.png` — Wireshark capturing live traffic
+- `nmap-syn-scan.png` — Nmap SYN scan results in terminal
+- `syn-scan-filtered.png` — Wireshark filter showing SYN scan traffic
+
+These screenshots provide evidence of the reconnaissance activity generated and analyzed during this lab.
+
 ## Conclusions
 
+This lab demonstrated how port scanning activity can be generated, captured, and analyzed using Nmap and Wireshark.
+
+By performing a SYN scan against the local system, we were able to observe reconnaissance traffic at the packet level and identify the scanning behavior using a targeted Wireshark filter. The scan revealed exposed services such as SSH and IPP, which illustrates how attackers enumerate systems before attempting exploitation.
+
+Understanding how to detect and analyze reconnaissance traffic is an important foundational skill for SOC analysts, as port scanning is often one of the earliest signs of malicious activity in a network environment.
+
 ## Next Steps
+
+To continue developing SOC investigation and detection skills:
+
+- **SOC Lab 07 — Suspicious DNS Traffic Analysis**
+- Capture DNS queries in Wireshark
+- Identify common DNS request and response patterns
+- Analyze suspicious or unusual DNS behavior
+
+This progression expands from reconnaissance detection into protocol-level traffic analysis.
