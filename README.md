@@ -42,6 +42,16 @@ This lab demonstrates how SOC analysts detect reconnaissance activity and analyz
 - Single VM environment
 
 ## Detection Workflow
+### 2. Generate Port Scanning Activity with Nmap
+
+Port scanning is commonly used during the reconnaissance phase of an attack to identify open ports and exposed services on a target system.
+
+To simulate scanning behavior, a SYN scan was performed against the local host using Nmap.
+
+**Command:**
+
+```bash
+sudo nmap -sS 127.0.0.1
 
 ### 1. Start Packet Capture in Wireshark
 
