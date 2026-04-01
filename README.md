@@ -42,6 +42,16 @@ This lab demonstrates how SOC analysts detect reconnaissance activity and analyz
 - Single VM environment
 
 ## Detection Workflow
+
+### 1. Start Packet Capture in Wireshark
+
+Wireshark is used to capture live network traffic for analysis.  
+Security analysts rely on packet capture tools to observe real-time activity and detect suspicious behavior.
+
+Open Wireshark and select the active network interface.
+
+Start capturing traffic to begin monitoring network activity.
+
 ### 2. Generate Port Scanning Activity with Nmap
 
 Port scanning is commonly used during the reconnaissance phase of an attack to identify open ports and exposed services on a target system.
@@ -53,18 +63,41 @@ To simulate scanning behavior, a SYN scan was performed against the local host u
 ```bash
 sudo nmap -sS 127.0.0.1
 
-### 1. Start Packet Capture in Wireshark
-
-Wireshark is used to capture live network traffic for analysis.  
-Security analysts rely on packet capture tools to observe real-time activity and detect suspicious behavior.
-
-Open Wireshark and select the active network interface.
-
-Start capturing traffic to begin monitoring network activity.
-
 ## Traffic Analysis
+The packet capture revealed clear indicators of port scanning activity.
+
+Using the Wireshark filter `tcp.flags.syn == 1 && tcp.flags.ack == 0`, multiple TCP SYN packets were identified targeting `127.0.0.1`. These packets were sent rapidly to different destination ports, which is a common pattern associated with SYN scanning behavior.
+
+The Nmap SYN scan generated initial connection attempts without completing the full TCP three-way handshake. This behavior is often used during reconnaissance because it is faster and can be less noisy than full connection scans.
+
+The scan successfully identified open ports on the system, including SSH on port `22` and IPP on port `631`. These results demonstrate how attackers can enumerate exposed services during the early stages of an intrusion.
+
+From a SOC perspective, this type of traffic is important because repeated SYN packets across multiple ports can indicate hostile reconnaissance activity that may precede exploitation attempts.
+
+### 3. Filter SYN Packets in Wireshark
+
+To isolate the port scanning activity, a display filter was applied in Wireshark to identify TCP SYN packets.
+
+**Wireshark Filter:**
+
+```text
+tcp.flags.syn == 1 && tcp.flags.ack == 0
 
 ## Detection Engineering Insights
+
+Port scanning activity can often be detected by monitoring for repeated connection attempts across multiple ports within a short time period.
+
+In this lab, the SYN scan generated multiple TCP SYN packets targeting different destination ports on the same host. This pattern is commonly associated with reconnaissance and is often one of the earliest indicators of attacker activity.
+
+Security teams can build detections for this behavior by monitoring for:
+
+- Multiple SYN packets from a single source IP
+- Connection attempts to many destination ports in a short time window
+- Repeated scans against the same host or subnet
+
+These detection opportunities can be implemented in intrusion detection systems (IDS), SIEM platforms, firewalls, or endpoint monitoring tools.
+
+Understanding how reconnaissance appears in packet captures helps analysts build stronger detections and investigate suspicious network behavior more effectively.
 
 ## Evidence
 
