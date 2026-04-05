@@ -41,10 +41,12 @@ This lab demonstrates how SOC analysts detect reconnaissance activity and analyz
 **Operating System:** Ubuntu Linux (Virtual Machine)
 
 **Tools Used**
+
 - Wireshark
 - Nmap
 
 **Network Setup**
+
 - Localhost traffic (`127.0.0.1`)
 - Single VM environment
 
@@ -77,7 +79,7 @@ To simulate scanning behavior, a SYN scan was performed against the local host u
 sudo nmap -sS 127.0.0.1
 ```
 
-**Explanation**
+**Explanation:**
 
 - `sudo` provides the elevated privileges required for a SYN scan
 - `nmap` is a network scanning tool used to identify open ports and services
@@ -98,7 +100,7 @@ To isolate the port scanning activity, a display filter was applied in Wireshark
 tcp.flags.syn == 1 && tcp.flags.ack == 0
 ```
 
-**Explanation**
+**Explanation:**
 
 - `tcp.flags.syn == 1` identifies packets with the SYN flag set
 - `tcp.flags.ack == 0` excludes packets that are part of established connections
@@ -114,11 +116,11 @@ The packet capture revealed clear indicators of port scanning activity.
 
 Using the Wireshark filter `tcp.flags.syn == 1 && tcp.flags.ack == 0`, multiple TCP SYN packets were identified targeting `127.0.0.1`. These packets were sent rapidly to different destination ports, which is a common pattern associated with SYN scanning behavior.
 
-The observed behavior is consistent with TCP SYN scanning, a technique commonly used to perform stealthy reconnaissance without completing full TCP handshakes.
+The observed behavior is consistent with TCP SYN scanning, a technique commonly used to identify exposed services without completing full TCP handshakes.
 
 The Nmap SYN scan generated initial connection attempts without completing the full TCP three-way handshake. This behavior is often used during reconnaissance because it is faster and can be less noisy than full connection scans.
 
-The scan successfully identified open ports on the system, including SSH on port `22` and IPP on port `631`. These results demonstrate how attackers can enumerate exposed services during the early stages of an intrusion.
+The scan successfully identified listening services on the local host, including SSH on port `22` and IPP on port `631`. These results demonstrate how attackers can enumerate exposed services during the early stages of an intrusion.
 
 From a SOC perspective, this type of traffic is important because repeated SYN packets across multiple ports can indicate hostile reconnaissance activity that may precede exploitation attempts.
 
@@ -160,13 +162,14 @@ These screenshots provide evidence of the reconnaissance activity generated and 
 
 ### 3. Filtered SYN Traffic in Wireshark
 <img src="screenshots/syn-scan-filtered.png" alt="Wireshark SYN scan filtered traffic" width="900">
+
 ---
 
 ## Conclusions
 
 This lab demonstrated how port scanning activity can be generated, captured, and analyzed using Nmap and Wireshark.
 
-By performing a SYN scan against the local system, we were able to observe reconnaissance traffic at the packet level and identify the scanning behavior using a targeted Wireshark filter. The scan revealed exposed services such as SSH and IPP, which illustrates how attackers enumerate systems before attempting exploitation.
+By performing a SYN scan against the local system, we were able to observe reconnaissance traffic at the packet level and identify the scanning behavior using a targeted Wireshark filter. The scan revealed exposed services such as SSH and IPP, illustrating how attackers enumerate systems before attempting exploitation.
 
 Understanding how to detect and analyze reconnaissance traffic is an important foundational skill for SOC analysts, as port scanning is often one of the earliest signs of malicious activity in a network environment.
 
