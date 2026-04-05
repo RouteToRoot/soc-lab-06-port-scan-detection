@@ -146,7 +146,7 @@ Understanding how reconnaissance appears in packet captures helps analysts build
 
 All screenshots are stored in the `/screenshots` directory:
 
-- `capture-start.png` — Wireshark capturing live traffic on the loopback interface
+- `capture-start.png` — Wireshark capturing live traffic prior to scan analysis
 - `nmap-syn-scan.png` — Nmap SYN scan results in terminal
 - `syn-scan-filtered.png` — Wireshark filter showing SYN scan traffic
 
