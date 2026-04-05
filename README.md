@@ -152,12 +152,14 @@ All screenshots are stored in the `/screenshots` directory:
 
 These screenshots provide evidence of the reconnaissance activity generated and analyzed during this lab.
 
-![Capture Start](screenshots/capture-start.png)
+### 1. Capture Started
+<img src="screenshots/capture-start.png" alt="Wireshark capture started" width="900">
 
-![Nmap SYN Scan](screenshots/nmap-syn-scan.png)
+### 2. Nmap SYN Scan Results
+<img src="screenshots/nmap-syn-scan.png" alt="Nmap SYN scan results" width="900">
 
-![SYN Scan Filtered](screenshots/syn-scan-filtered.png)
-
+### 3. Filtered SYN Traffic in Wireshark
+<img src="screenshots/syn-scan-filtered.png" alt="Wireshark SYN scan filtered traffic" width="900">
 ---
 
 ## Conclusions
