@@ -114,6 +114,8 @@ The packet capture revealed clear indicators of port scanning activity.
 
 Using the Wireshark filter `tcp.flags.syn == 1 && tcp.flags.ack == 0`, multiple TCP SYN packets were identified targeting `127.0.0.1`. These packets were sent rapidly to different destination ports, which is a common pattern associated with SYN scanning behavior.
 
+The observed behavior is consistent with TCP SYN scanning, a technique commonly used to perform stealthy reconnaissance without completing full TCP handshakes.
+
 The Nmap SYN scan generated initial connection attempts without completing the full TCP three-way handshake. This behavior is often used during reconnaissance because it is faster and can be less noisy than full connection scans.
 
 The scan successfully identified open ports on the system, including SSH on port `22` and IPP on port `631`. These results demonstrate how attackers can enumerate exposed services during the early stages of an intrusion.
