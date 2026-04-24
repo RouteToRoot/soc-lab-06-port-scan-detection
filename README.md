@@ -25,6 +25,71 @@ This lab demonstrates how SOC analysts detect reconnaissance activity and analyz
 
 ---
 
+## Incident Ticket (ServiceNow Simulation)
+
+**Incident ID:** INC-0006  
+**Date/Time Detected:** 2026-04-23 20:30  
+**Detected By:** SOC Analyst (Lab Simulation)  
+**Severity:** Medium  
+**Category:** Network Security  
+**Subcategory:** Port Scanning  
+
+---
+
+### Short Description
+TCP SYN port scanning activity detected from 127.0.0.1 targeting multiple destination ports.
+
+---
+
+### Detailed Description
+During network traffic analysis, a SYN scan was generated using Nmap against the local host (127.0.0.1).
+
+Packet capture analysis revealed multiple TCP SYN packets being sent to different destination ports in rapid succession, consistent with reconnaissance activity.
+
+---
+
+### Indicators of Compromise (IOCs)
+- Source IP: 127.0.0.1  
+- Destination IP: 127.0.0.1  
+- Ports: Multiple (e.g., 22, 631)  
+- Protocol: TCP (SYN)  
+
+---
+
+### Analysis
+Packet inspection confirmed repeated SYN packets without completion of the TCP three-way handshake.
+
+This behavior is consistent with TCP SYN scanning, a common reconnaissance technique used to identify open ports and services.
+
+---
+
+### Impact Assessment
+- No external threat observed; activity limited to local lab environment.
+- No system compromise detected
+
+---
+
+### Response Actions Taken
+- Captured traffic using Wireshark  
+- Applied SYN filter (`tcp.flags.syn == 1 && tcp.flags.ack == 0`)  
+- Analyzed packet behavior and port activity  
+- Documented findings  
+
+---
+
+### Recommended Actions
+- Implement detection rules for SYN scan behavior  
+- Monitor for repeated connection attempts across multiple ports  
+- Correlate with IDS/IPS alerts for reconnaissance activity  
+- Tune alert thresholds to reduce false positives in controlled environments
+  
+---
+
+### Status
+Closed (Simulated Reconnaissance Activity)
+
+---
+
 ## Lab Objectives
 
 - Generate port scanning activity using Nmap
